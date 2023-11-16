@@ -1,0 +1,108 @@
+builds:
+  - name: networkit
+    git: 'https://github.com/friedagerharz/networkit.git'
+    regenerate:
+      - args: ['git', 'submodule', 'update', '--init']
+    configure:
+      - args:
+          - 'cmake'
+          - '-DCMAKE_INSTALL_PREFIX=@THIS_PREFIX_DIR@'
+          - '-DCMAKE_BUILD_TYPE=Release'
+          - '-DNETWORKIT_NODE_STORAGE=u32'
+          - '@THIS_CLONE_DIR@'
+        environ:
+            'CXX': 'g++'
+    compile:
+      - args: ['make', '-j@PARALLELISM@']
+    install:
+      - args: ['make', 'install']
+  
+  - name: dynamic-b-suitor
+    git: 'https://github.com/friedagerharz/dynamic-b-suitor.git'
+    requires:
+      - networkit
+    configure:
+      - args:
+          - 'cmake'
+          - '-DCMAKE_INSTALL_PREFIX=@THIS_PREFIX_DIR@'
+          - '-DCMAKE_BUILD_TYPE=Release'
+          - '@THIS_CLONE_DIR@'
+        environ:
+            'CXX': 'g++'
+            'CXXFLAGS': '-DNETWORKIT_U32_NODES'
+    compile:
+      - args: ['make', '-j@PARALLELISM@']
+    install:
+      - args: ['make', 'install']
+    extra_paths: ['@THIS_PREFIX_DIR@']
+
+revisions:
+  - name: comparison
+    build_version:
+        'networkit': '15aa7b427814831893d157c85b0928c1180e1045'
+        'dynamic-b-suitor': '7d4fae06a5f276d37cf23b78d86c2c92359ac1b6'   
+   
+# must be a subset of instances listed in graphs.txt and downloaded by download_graph_files.py
+instances:
+  - repo: local
+    extensions:
+       - mtx
+    items:
+      - Reuters911
+      # - astro-ph
+      # - cond-mat-2005
+      # - turon_m
+      # - gas_sensor
+      # - Fault_639
+      # - mouse_gene
+      # - bone010
+
+experiments:
+  - name: dynamic-b-suitor-exp-graph-instances
+    use_builds: [dynamic-b-suitor]
+    args: ['dyn-b-suitor-comparison', '@INSTANCE:mtx@', '@EXTRA_ARGS@']
+    num_nodes: 1
+    stdout: out
+    repeat: 1 # TODO - set to a larger number to calculate the average
+
+  - name: dynamic-b-suitor-exp-graph-random
+    use_builds: [dynamic-b-suitor]
+    args: ['dyn-b-suitor-comparison', 'random', '@EXTRA_ARGS@']
+    num_nodes: 1
+    stdout: out
+    repeat: 1 # TODO - set to a larger number to calculate the average
+
+# need prefix (1_, 2_, 3_) because of lexicographical sorting of the cross product elements
+variants:
+  - axis: 'operation'
+    items:
+      - name: '1_op=insert'
+        extra_args: ['insert']
+      - name: '1_op=remove'
+        extra_args: ['remove']
+
+  - axis: 'batch_size'
+    items:
+      - name: '2_batch_s=10e0'
+        extra_args: ['1']
+      - name: '2_batch_s=10e1'
+        extra_args: ['10']
+      - name: '2_batch_s=10e2'
+        extra_args: ['100']
+      - name: '2_batch_s=10e3'
+        extra_args: ['1000']
+      - name: '2_batch_s=10e4'
+        extra_args: ['10000']
+
+  - axis: 'b_value'
+    items:
+      - name: '3_b_val=1'
+        extra_args: ['1']
+      - name: '3_b_val=2'
+        extra_args: ['2']
+      - name: '3_b_val=3'
+        extra_args: ['3']
+      - name: '3_b_val=4'
+        extra_args: ['4']
+      - name: '3_b_val=5'
+        extra_args: ['5']

@@ -1,3 +1,13 @@
+# VS Code
+.vscode/*
+
+# Simexpal
+builds/
+*output/
+*aux/
+*instances/
+*.cache
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
