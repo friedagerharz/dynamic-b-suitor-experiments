@@ -45,6 +45,7 @@ revisions:
 # must be a subset of instances listed in graphs.txt and downloaded by download_graph_files.py
 instances:
   - repo: local
+    set: real
     extensions:
        - mtx
     items:
@@ -57,20 +58,19 @@ instances:
       # - mouse_gene
       # - bone010
 
+  # - repo: local
+  #   set: random
+  #   items:
+  #     - name: random
+  #       files: []
+  #       extra_args: ['random']
+
 experiments:
-  - name: dynamic-b-suitor-exp-graph-instances
+  - name: dynamic-b-suitor
     use_builds: [dynamic-b-suitor]
     args: ['dyn-b-suitor-comparison', '@INSTANCE:mtx@', '@EXTRA_ARGS@']
     num_nodes: 1
     stdout: out
-    repeat: 1 # TODO - set to a larger number to calculate the average
-
-  - name: dynamic-b-suitor-exp-graph-random
-    use_builds: [dynamic-b-suitor]
-    args: ['dyn-b-suitor-comparison', 'random', '@EXTRA_ARGS@']
-    num_nodes: 1
-    stdout: out
-    repeat: 1 # TODO - set to a larger number to calculate the average
 
 # need prefix (1_, 2_, 3_) because of lexicographical sorting of the cross product elements
 variants:
@@ -85,24 +85,38 @@ variants:
     items:
       - name: '2_batch_s=10e0'
         extra_args: ['1']
-      - name: '2_batch_s=10e1'
-        extra_args: ['10']
-      - name: '2_batch_s=10e2'
-        extra_args: ['100']
-      - name: '2_batch_s=10e3'
-        extra_args: ['1000']
-      - name: '2_batch_s=10e4'
-        extra_args: ['10000']
+      # - name: '2_batch_s=10e1'
+      #   extra_args: ['10']
+      # - name: '2_batch_s=10e2'
+      #   extra_args: ['100']
+      # - name: '2_batch_s=10e3'
+      #   extra_args: ['1000']
+      # - name: '2_batch_s=10e4'
+      #   extra_args: ['10000']
 
   - axis: 'b_value'
     items:
       - name: '3_b_val=1'
         extra_args: ['1']
-      - name: '3_b_val=2'
-        extra_args: ['2']
-      - name: '3_b_val=3'
-        extra_args: ['3']
-      - name: '3_b_val=4'
-        extra_args: ['4']
-      - name: '3_b_val=5'
-        extra_args: ['5']
+      # - name: '3_b_val=2'
+      #   extra_args: ['2']
+      # - name: '3_b_val=3'
+      #   extra_args: ['3']
+      # - name: '3_b_val=4'
+      #   extra_args: ['4']
+      # - name: '3_b_val=5'
+      #   extra_args: ['5']
+
+matrix:
+  include:
+    # Test operation axis on real graphs
+    - experiments: [dynamic-b-suitor]
+      instsets: [real]
+      axes: ['operation', 'batch_size', 'b_value']
+      revisions: [comparison]
+
+    # Test operation axis on a random generated graph
+    # - experiments: [dynamic-b-suitor] # ? experiment is using instance mtx graph file
+    #   instsets: [random]
+    #   axes: ['operation', 'batch_size', 'b_value']
+    #   revisions: [comparison]
