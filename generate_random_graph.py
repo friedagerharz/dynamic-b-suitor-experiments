@@ -11,6 +11,10 @@ def generate(n, prob):
     os.makedirs(input_dir, exist_ok=True)
     file_name = f"er-{len(str(n)) - 1}.gt"
     dest_path = os.path.join(input_dir, file_name)
+
+    if os.path.exists(dest_path):
+        print(f"{file_name} already exists.")
+        return
     
     G = nk.generators.ErdosRenyiGenerator(n, prob).generate()
     # nk.graphtools.randomizeWeights(G) # edge weights cannot be handled by GraphToolBinaryReader?
