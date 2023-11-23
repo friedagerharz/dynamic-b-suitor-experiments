@@ -39,37 +39,44 @@ builds:
 revisions:
   - name: comparison
     build_version:
-        'networkit': '15aa7b427814831893d157c85b0928c1180e1045'
-        'dynamic-b-suitor': '7d4fae06a5f276d37cf23b78d86c2c92359ac1b6'   
-   
-# must be a subset of instances listed in graphs.txt and downloaded by download_graph_files.py
+        'networkit': '279968d6272ab1596c88553233030845ba54fe18'
+        'dynamic-b-suitor': '48fb5e9ce4528e42372ba8facf7715ad5c88d7d6'
+
+# must be a subset of instances listed in graphs.txt and downloaded by download_graph_files.py or created by generate_random_graph.py
 instances:
   - repo: local
-    set: real
-    extensions:
-       - mtx
+    set: real_sparse
     items:
-      - Reuters911
-      # - astro-ph
-      # - cond-mat-2005
-      # - turon_m
-      # - gas_sensor
-      # - Fault_639
-      # - mouse_gene
-      # - bone010
-
+      - human_gene2.mtx
+      - bone010.mtx
+      - mawi_201512020330.mtx
+      - GAP-twitter.mtx
+      - MOLIERE_2016.mtx
+  # TODO
   # - repo: local
-  #   set: random
+  #   set: real_social
   #   items:
-  #     - name: random
-  #       files: []
-  #       extra_args: ['random']
+  #     -
+  # # TODO
+  # - repo: local
+  #   set: real_infrastructure
+  #   items:
+  #     -
+
+  - repo: local
+    set: random
+    items:
+      - er-3.gt
+      - er-4.gt
+      - er-5.gt
+      - er-6.gt
+      - er-7.gt
 
 experiments:
   - name: dynamic-b-suitor
     use_builds: [dynamic-b-suitor]
-    args: ['dyn-b-suitor-comparison', '@INSTANCE:mtx@', '@EXTRA_ARGS@']
-    num_nodes: 1
+    args: ['dyn-b-suitor-comparison', '@INSTANCE@', '@EXTRA_ARGS@']
+    num_nodes: 24
     stdout: out
 
 # need prefix (1_, 2_, 3_) because of lexicographical sorting of the cross product elements
@@ -85,38 +92,50 @@ variants:
     items:
       - name: '2_batch_s=10e0'
         extra_args: ['1']
-      # - name: '2_batch_s=10e1'
-      #   extra_args: ['10']
-      # - name: '2_batch_s=10e2'
-      #   extra_args: ['100']
-      # - name: '2_batch_s=10e3'
-      #   extra_args: ['1000']
-      # - name: '2_batch_s=10e4'
-      #   extra_args: ['10000']
+      - name: '2_batch_s=10e1'
+        extra_args: ['10']
+      - name: '2_batch_s=10e2'
+        extra_args: ['100']
+      - name: '2_batch_s=10e3'
+        extra_args: ['1000']
+      - name: '2_batch_s=10e4'
+        extra_args: ['10000']
 
   - axis: 'b_value'
     items:
       - name: '3_b_val=1'
         extra_args: ['1']
-      # - name: '3_b_val=2'
-      #   extra_args: ['2']
-      # - name: '3_b_val=3'
-      #   extra_args: ['3']
-      # - name: '3_b_val=4'
-      #   extra_args: ['4']
-      # - name: '3_b_val=5'
-      #   extra_args: ['5']
+      - name: '3_b_val=2'
+        extra_args: ['2']
+      - name: '3_b_val=3'
+        extra_args: ['3']
+      - name: '3_b_val=4'
+        extra_args: ['4']
+      - name: '3_b_val=5'
+        extra_args: ['5']
+      - name: '3_b_val=random'
+        extra_args: ['random']
 
 matrix:
   include:
     # Test operation axis on real graphs
     - experiments: [dynamic-b-suitor]
-      instsets: [real]
+      instsets: [real_sparse]
       axes: ['operation', 'batch_size', 'b_value']
       revisions: [comparison]
 
-    # Test operation axis on a random generated graph
-    # - experiments: [dynamic-b-suitor] # ? experiment is using instance mtx graph file
-    #   instsets: [random]
+    # - experiments: [dynamic-b-suitor]
+    #   instsets: [real_infrastructure]
     #   axes: ['operation', 'batch_size', 'b_value']
     #   revisions: [comparison]
+
+    # - experiments: [dynamic-b-suitor]
+    #   instsets: [real_social]
+    #   axes: ['operation', 'batch_size', 'b_value']
+    #   revisions: [comparison]
+
+    # Test operation axis on a random generated graph
+    - experiments: [dynamic-b-suitor]
+      instsets: [random]
+      axes: ['operation', 'batch_size', 'b_value']
+      revisions: [comparison]

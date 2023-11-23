@@ -1,8 +1,19 @@
-Pajek/Reuters911
-Newman/astro-ph
-Newman/cond-mat-2005
-GHS_indef/turon_m
-Oberwolfach/gas_sensor
-Janna/Fault_639
-Belcastro/mouse_gene
+# graphs to be downloaded from https://sparse.tamu.edu/
+# format: <group>/<graph>
+#
+# number of nodes | number of (directed) edges
+
+# 14,340          | 9,034.194
+Belcastro/human_gene2
+
+# 986,703	      | 47,851,783
 Oberwolfach/bone010
+
+# 226,196,185	  | 240,023,947
+MAWI/mawi_201512020330
+
+# 61,578,415	  | 1,468,364,884
+GAP/GAP-twitter
+
+# 30,239,687	  | 3,334,627,347
+Sybrandt/MOLIERE_2016

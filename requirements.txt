@@ -1,2 +1,1 @@
-pandas==1.5.3
 simexpal==1.0

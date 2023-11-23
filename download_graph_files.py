@@ -36,5 +36,6 @@ if __name__ == "__main__":
         instances = file.read().splitlines()
 
     for instance in instances:
-        group, graph = instance.split('/')
-        download(group, graph)
+        if not instance.startswith('#') and instance.strip():
+            group, graph = instance.split('/')
+            download(group, graph)
