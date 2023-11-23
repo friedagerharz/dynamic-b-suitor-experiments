@@ -49,9 +49,9 @@ instances:
     items:
       - human_gene2.mtx
       - bone010.mtx
+      - mawi_201512020130.mtx
       - mawi_201512020330.mtx
       - GAP-twitter.mtx
-      - MOLIERE_2016.mtx
   # TODO
   # - repo: local
   #   set: real_social
