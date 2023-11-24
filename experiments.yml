@@ -48,10 +48,11 @@ instances:
     set: real_sparse
     items:
       - human_gene2.mtx
+      - mouse_gene.mtx
       - bone010.mtx
-      # - mawi_201512020130.mtx
-      - mawi_201512020330.mtx
-      # - GAP-twitter.mtx
+      - mawi_201512020000.mtx
+      - cage15.mtx
+      - GAP-web.mtx
   # TODO
   # - repo: local
   #   set: real_social
