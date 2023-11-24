@@ -49,9 +49,9 @@ instances:
     items:
       - human_gene2.mtx
       - bone010.mtx
-      - mawi_201512020130.mtx
+      # - mawi_201512020130.mtx
       - mawi_201512020330.mtx
-      - GAP-twitter.mtx
+      # - GAP-twitter.mtx
   # TODO
   # - repo: local
   #   set: real_social
@@ -69,8 +69,8 @@ instances:
       - er-3.gt
       - er-4.gt
       - er-5.gt
-      - er-6.gt
-      - er-7.gt
+      # - er-6.gt
+      # - er-7.gt
 
 experiments:
   - name: dynamic-b-suitor
@@ -98,8 +98,6 @@ variants:
         extra_args: ['100']
       - name: '2_batch_s=10e3'
         extra_args: ['1000']
-      - name: '2_batch_s=10e4'
-        extra_args: ['10000']
 
   - axis: 'b_value'
     items:
@@ -109,10 +107,6 @@ variants:
         extra_args: ['2']
       - name: '3_b_val=3'
         extra_args: ['3']
-      - name: '3_b_val=4'
-        extra_args: ['4']
-      - name: '3_b_val=5'
-        extra_args: ['5']
       - name: '3_b_val=random'
         extra_args: ['random']
 
@@ -135,7 +129,7 @@ matrix:
     #   revisions: [comparison]
 
     # Test operation axis on a random generated graph
-    - experiments: [dynamic-b-suitor]
-      instsets: [random]
-      axes: ['operation', 'batch_size', 'b_value']
-      revisions: [comparison]
+    # - experiments: [dynamic-b-suitor]
+    #   instsets: [random]
+    #   axes: ['operation', 'batch_size', 'b_value']
+    #   revisions: [comparison]
