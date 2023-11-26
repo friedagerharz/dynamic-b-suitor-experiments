@@ -5,23 +5,34 @@ import os
 import random
 
 def generate(n, prob):
-    format = nk.Format.GraphToolBinary
-
     input_dir = 'instances'
     os.makedirs(input_dir, exist_ok=True)
-    file_name = f"er-{len(str(n)) - 1}.gt"
+    file_name = f"er-{len(str(n)) - 1}.nkb"
     dest_path = os.path.join(input_dir, file_name)
 
-    if os.path.exists(dest_path):
+    if os.path.isfile(dest_path):
         print(f"{file_name} already exists.")
         return
     
     G = nk.generators.ErdosRenyiGenerator(n, prob).generate()
-    # nk.graphtools.randomizeWeights(G) # edge weights cannot be handled by GraphToolBinaryReader?
-    nk.graphio.writeGraph(G, dest_path, format)    
+    G.removeMultiEdges()
+    G.removeSelfLoops()
+    if G.isDirected():
+        G = nk.graphtools.toUndirected(G)
+    nk.graphtools.randomizeWeights(G)
+    nk.graphio.NetworkitBinaryWriter().write(G, dest_path)
+
+    # # remove:
+    # GR = nk.graphio.NetworkitBinaryReader().read(dest_path)
+    # print(f"nodes: {G.numberOfNodes()}")
+    # print(f"edges: {G.numberOfEdges()}")
+
+    # def printEdge(v, u, w, eid):
+    #     print(f"({v},{u}) - {w}")
+    # GR.forEdges(printEdge)
 
 if __name__ == "__main__":
-    prob = 0.5
+    prob = 0.2
     num_nodes = [10**3, 10**4, 10**5, 10**6, 10**7]
     seed = 1
     nk.setSeed(seed, False)

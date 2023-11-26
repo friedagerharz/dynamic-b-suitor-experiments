@@ -39,8 +39,8 @@ builds:
 revisions:
   - name: comparison
     build_version:
-        'networkit': '279968d6272ab1596c88553233030845ba54fe18'
-        'dynamic-b-suitor': '48fb5e9ce4528e42372ba8facf7715ad5c88d7d6'
+        'networkit': '097066877ace19789d0063ee4b388640055b7fd4'
+        'dynamic-b-suitor': '421bf2d64803d006468e08b934135102ca0f8199'
 
 # must be a subset of instances listed in graphs.txt and downloaded by download_graph_files.py or created by generate_random_graph.py
 instances:
@@ -49,10 +49,11 @@ instances:
     items:
       - human_gene2.mtx
       - mouse_gene.mtx
+      - cage14.mtx
       - bone010.mtx
-      - mawi_201512020000.mtx
+      # - mawi_201512020000.mtx
       - cage15.mtx
-      - GAP-web.mtx
+      # - GAP-web.mtx
   # TODO
   # - repo: local
   #   set: real_social
@@ -64,14 +65,14 @@ instances:
   #   items:
   #     -
 
-  - repo: local
-    set: random
-    items:
-      - er-3.gt
-      - er-4.gt
-      - er-5.gt
-      # - er-6.gt
-      # - er-7.gt
+  # - repo: local
+  #   set: random
+  #   items:
+  #     - er-3.gt
+  #     - er-4.gt
+  #     - er-5.gt
+  #     - er-6.gt
+  #     - er-7.gt
 
 experiments:
   - name: dynamic-b-suitor
