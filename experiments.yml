@@ -39,8 +39,8 @@ builds:
 revisions:
   - name: comparison
     build_version:
-        'networkit': '097066877ace19789d0063ee4b388640055b7fd4'
-        'dynamic-b-suitor': '421bf2d64803d006468e08b934135102ca0f8199'
+        'networkit': '015c2ee30a1e838ca4bcd54204778d4ed67fcf0c'
+        'dynamic-b-suitor': '73b4ccbceb29d263f3439b86e7c136c3e6a5d73a'
 
 # must be a subset of instances listed in graphs.txt and downloaded by download_graph_files.py or created by generate_random_graph.py
 instances:
