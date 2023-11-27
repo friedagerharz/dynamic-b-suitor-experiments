@@ -54,16 +54,20 @@ instances:
       # - mawi_201512020000.mtx
       - cage15.mtx
       # - GAP-web.mtx
-  # TODO
+
   # - repo: local
   #   set: real_social
   #   items:
   #     -
-  # # TODO
-  # - repo: local
-  #   set: real_infrastructure
-  #   items:
-  #     -
+
+  - repo: local
+    set: real_infrastructure
+    items:
+      - belgium.nkb
+      - austria.nkb
+      - poland.nkb
+      - france.nkb
+      - africa.nkb
 
   # - repo: local
   #   set: random
@@ -115,15 +119,15 @@ variants:
 matrix:
   include:
     # Test operation axis on real graphs
-    - experiments: [dynamic-b-suitor]
-      instsets: [real_sparse]
-      axes: ['operation', 'batch_size', 'b_value']
-      revisions: [comparison]
-
     # - experiments: [dynamic-b-suitor]
-    #   instsets: [real_infrastructure]
+    #   instsets: [real_sparse]
     #   axes: ['operation', 'batch_size', 'b_value']
     #   revisions: [comparison]
+
+    - experiments: [dynamic-b-suitor]
+      instsets: [real_infrastructure]
+      axes: ['operation', 'batch_size', 'b_value']
+      revisions: [comparison]
 
     # - experiments: [dynamic-b-suitor]
     #   instsets: [real_social]
