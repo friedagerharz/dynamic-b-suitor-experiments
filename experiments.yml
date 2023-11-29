@@ -55,10 +55,14 @@ instances:
       - cage15.mtx
       # - GAP-web.mtx
 
-  # - repo: local
-  #   set: real_social
-  #   items:
-  #     -
+  - repo: local
+    set: real_social
+    items:
+      - com-youtube.mtx
+      - petster-catdog-friend.mtx
+      - flickr-growth.nkb
+      - soc-LiveJournal1.nkb
+      - twitter.nkb
 
   - repo: local
     set: real_infrastructure
@@ -69,14 +73,12 @@ instances:
       - france.nkb
       - africa.nkb
 
-  # - repo: local
-  #   set: random
-  #   items:
-  #     - er-3.gt
-  #     - er-4.gt
-  #     - er-5.gt
-  #     - er-6.gt
-  #     - er-7.gt
+  - repo: local
+    set: random
+    items:
+      - rmat-b.nkb
+      - rmat-g.nkb
+      - rmat-er.nkb
 
 experiments:
   - name: dynamic-b-suitor
@@ -124,15 +126,15 @@ matrix:
     #   axes: ['operation', 'batch_size', 'b_value']
     #   revisions: [comparison]
 
-    - experiments: [dynamic-b-suitor]
-      instsets: [real_infrastructure]
-      axes: ['operation', 'batch_size', 'b_value']
-      revisions: [comparison]
-
     # - experiments: [dynamic-b-suitor]
-    #   instsets: [real_social]
+    #   instsets: [real_infrastructure]
     #   axes: ['operation', 'batch_size', 'b_value']
     #   revisions: [comparison]
+
+    - experiments: [dynamic-b-suitor]
+      instsets: [real_social]
+      axes: ['operation', 'batch_size', 'b_value']
+      revisions: [comparison]
 
     # Test operation axis on a random generated graph
     # - experiments: [dynamic-b-suitor]
