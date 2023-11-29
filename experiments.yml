@@ -40,7 +40,7 @@ revisions:
   - name: comparison
     build_version:
         'networkit': '015c2ee30a1e838ca4bcd54204778d4ed67fcf0c'
-        'dynamic-b-suitor': '49f3eb965c2b2b1758c3293ff39ee1f9eb9c78d0'
+        'dynamic-b-suitor': '7b669628d7fa5936dae8b8bd0d3ae8e0c6a63144'
 
 # must be a subset of instances listed in graphs.txt and downloaded by download_graph_files.py or created by generate_random_graph.py
 instances:
@@ -121,20 +121,20 @@ variants:
 matrix:
   include:
     # Test operation axis on real graphs
-    # - experiments: [dynamic-b-suitor]
-    #   instsets: [real_sparse]
-    #   axes: ['operation', 'batch_size', 'b_value']
-    #   revisions: [comparison]
-
-    # - experiments: [dynamic-b-suitor]
-    #   instsets: [real_infrastructure]
-    #   axes: ['operation', 'batch_size', 'b_value']
-    #   revisions: [comparison]
-
     - experiments: [dynamic-b-suitor]
-      instsets: [real_social]
+      instsets: [real_sparse]
       axes: ['operation', 'batch_size', 'b_value']
       revisions: [comparison]
+
+    - experiments: [dynamic-b-suitor]
+      instsets: [real_infrastructure]
+      axes: ['operation', 'batch_size', 'b_value']
+      revisions: [comparison]
+
+    # - experiments: [dynamic-b-suitor]
+    #   instsets: [real_social]
+    #   axes: ['operation', 'batch_size', 'b_value']
+    #   revisions: [comparison]
 
     # Test operation axis on a random generated graph
     # - experiments: [dynamic-b-suitor]
