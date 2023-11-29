@@ -84,8 +84,12 @@ experiments:
   - name: dynamic-b-suitor
     use_builds: [dynamic-b-suitor]
     args: ['dyn-b-suitor-comparison', '@INSTANCE@', '@EXTRA_ARGS@']
-    num_nodes: 24
+    num_nodes: 1
+    procs_per_node: 1
+    num_threads: 24
     stdout: out
+    environ:
+      OMP_NUM_THREADS: 24
 
 # need prefix (1_, 2_, 3_) because of lexicographical sorting of the cross product elements
 variants:
